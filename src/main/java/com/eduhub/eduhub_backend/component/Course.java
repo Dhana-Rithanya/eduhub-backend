@@ -1,5 +1,5 @@
 package com.eduhub.eduhub_backend.component;
-
+//CController
 public class Course {
     private int courseCode;
     private String subjectName;

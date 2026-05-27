@@ -11,13 +11,21 @@ import java.util.List;
 public class CController {
     static List<Course> courseList = new ArrayList<>();
 
-    public CController() {
+    static {
         courseList.add(new Course(202,"Full Stack",4));
         courseList.add(new Course(99,"Maths",3));
         courseList.add(new Course(101,"DBMS",4));
         courseList.add(new Course(249,"DS",2));
         courseList.add(new Course(304,"Java",3));
     }
+
+//    public CController() {
+//        courseList.add(new Course(202,"Full Stack",4));
+//        courseList.add(new Course(99,"Maths",3));
+//        courseList.add(new Course(101,"DBMS",4));
+//        courseList.add(new Course(249,"DS",2));
+//        courseList.add(new Course(304,"Java",3));
+//    }
     @GetMapping("courses")
     public ResponseEntity<List<Course>> getCourses(){
         return new ResponseEntity<>(courseList, HttpStatus.OK);
@@ -45,7 +53,7 @@ public class CController {
         courseList.add(course);
         return new ResponseEntity<>("Course added",HttpStatus.OK);
     }
-    @PutMapping("updateCourse")
+    @PutMapping("updateCourse/{courseCode}")
     public ResponseEntity<String> updateCourse(@PathVariable int courseCode, @RequestBody Course Ucourse){
         for(Course c : courseList) {
             if (c.getCourseCode() == courseCode) {
@@ -56,7 +64,7 @@ public class CController {
         }
         return new ResponseEntity<>("Course not fount", HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("courseCode")
+    @DeleteMapping("deleteCourse/{code}")
     public ResponseEntity<String> deleteCourse(@PathVariable int code){
         for(Course c : courseList){
             if(c.getCourseCode()==code) {

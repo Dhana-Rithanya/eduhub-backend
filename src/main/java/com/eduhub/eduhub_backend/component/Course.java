@@ -1,4 +1,7 @@
 package com.eduhub.eduhub_backend.component;
+
+import org.apache.el.stream.Stream;
+
 //CController
 public class Course {
     private int courseCode;

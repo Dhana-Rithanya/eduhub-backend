@@ -1,8 +1,11 @@
 package com.JPA.JPAdemo.Controller;
 
+import com.JPA.JPAdemo.Dto.StudentDto;
 import com.JPA.JPAdemo.Model.Student;
 import com.JPA.JPAdemo.Service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +22,11 @@ public class StudentController {
         return s.getAllStudents();
     }
     @PostMapping("students")
-    public String addStudent(@RequestBody Student std){
+    public String addStudent(@Valid @RequestBody Student std){
         return s.addStudent(std);
     }
     @GetMapping("students/{id}")
-    public Student getStudentByRollno(@PathVariable("id") int roll){
+    public Student getStudentByRollno(@PathVariable("id") Integer roll){
         return s.getStudentByRoll(roll);
     }
     @PutMapping("updateStudent")
@@ -31,7 +34,7 @@ public class StudentController {
         return s.updateStudent(std);
     }
     @DeleteMapping("deleteStudent/{id}")
-    public String deleteStudent(@PathVariable("id") int roll){
+    public String deleteStudent(@PathVariable("id") Integer roll){
         return s.deleteStudent(roll);
     }
     @DeleteMapping("students")
@@ -40,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("students/custom")
-    public List<Student> getStudentByCustom(@Param("tech") String tech,@Param("rno") int roll){
+    public List<Student> getStudentByCustom(@Param("tech") String tech,@Param("rno") Integer roll){
         return  s.getAllStudentsByTechandRoll(tech,roll);
     }
     @GetMapping("student/{tech}")
@@ -56,5 +59,18 @@ public class StudentController {
     public List<Student>getstudentbyjpql(@Param("name") String name)
     {
         return s.getstudentbyjpql(name);
+    }
+    @GetMapping("/student/dto/{id}")
+    public StudentDto getAllStudentByRollNo(@PathVariable("id") Integer roll){
+        return s.getAllStudentByRoll(roll);
+    }
+    @PostMapping("students/dto")
+    public String addStudent(@Valid @RequestBody StudentDto requestDto){
+        return s.addStudents(requestDto);
+    }
+    @GetMapping("pagination")
+    //REQUESTPARAM
+    public Page<Student> getPageStud(@RequestParam("page") int page, @RequestParam("size") int size){ //for this page, this number of data - page, size
+        return s.getPageStud(page,size);
     }
 }

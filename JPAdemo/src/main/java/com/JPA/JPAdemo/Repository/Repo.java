@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface Repo extends JpaRepository<Student,Integer> {
-    List<Student> findByTechAndRno(String tech, int rno);
+    List<Student> findByTechAndRno(String tech, Integer rno);
 
     List<Student> findByTech(String tech);
     @Query(nativeQuery = true,
